@@ -110,18 +110,15 @@ public class ImageController {
 
                 int alpha = ((pixel >> 24) & 0xff);
                 int red = ((pixel >> 16) & 0xff);
-                int green = ((pixel >> 8) & 0xff);
-                int blue = (pixel & 0xff);
 
-                int avg = (red + green + blue) / 3;
 
-                pixel = (alpha << 24) | (avg << 16) | (avg << 8)
-                        | avg;
 
-                int redLevel = (int) (0.2162 * red + 0.7152 * green + 0.0722 * blue);
-                int redScale = (alpha << 24) + (redLevel << 16) + (redLevel << 8) + redLevel;
+                pixel = (alpha << 24) | (red << 16) | (0 << 8);
 
-                redImage.getPixelWriter().setArgb(x, y, pixel);
+
+                redImage.getPixelWriter().setArgb(x,y,pixel);
+
+
             }
 
             alteredImage.setImage(redImage);
