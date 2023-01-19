@@ -1,6 +1,7 @@
 module com.example.imageviewernew {
     requires javafx.controls;
     requires javafx.fxml;
+    requires org.apache.commons.lang3;
 
 
     opens com.example.imageviewernew to javafx.fxml;

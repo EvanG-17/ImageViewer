@@ -18,6 +18,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.io.File;
+import org.apache.commons.lang3.StringUtils;
+
 
 public class ImageController {
     public ImageView originalImage;
@@ -37,6 +39,9 @@ public class ImageController {
     public Slider hueSlider;
     public Slider brightness;
     public MenuItem makeOriginal;
+    public Label hValue;
+    public Label bValue;
+
     @FXML
     private Label welcomeText;
 
@@ -62,7 +67,7 @@ public class ImageController {
         File file2 = new File(String.valueOf(image));
         long size = file2.length();
         double sizeInMB = size / (1024.0 * 1024.0);
-        System.out.println("Size of file: " + sizeInMB + " MB");
+
 
         iName.setText(file.getName());
         iSize.setText("Size of file: " + sizeInMB + " MB");
@@ -77,13 +82,7 @@ public class ImageController {
             System.out.println("No image selected");
             return;
         }
-        int width = (int) image.getWidth();
-        int height = (int) image.getHeight();
-
-        WritableImage newOriginalImage = new WritableImage(width, height);
-
         alteredImage.setImage(image);
-
     }
 
     public void turnPictureGrey(ActionEvent actionEvent) {
@@ -229,6 +228,7 @@ public class ImageController {
         ColorAdjust colorAdjust = new ColorAdjust();
         colorAdjust.setBrightness(brightness.getValue());
         alteredImage.setEffect(colorAdjust);
+        bValue.setText(String.valueOf(brightness.getValue()));
     }
 
 
@@ -237,10 +237,8 @@ public class ImageController {
             ColorAdjust colorAdjust = new ColorAdjust();
             colorAdjust.setHue(hueSlider.getValue());
             alteredImage.setEffect(colorAdjust);
-
+            hValue.setText(String.valueOf(hueSlider.getValue()));
     }
-
-
 }
 
 
