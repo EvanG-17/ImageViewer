@@ -14,7 +14,9 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.io.File;
 
 public class ImageController {
@@ -34,6 +36,7 @@ public class ImageController {
     public MenuItem makeGreen;
     public Slider hueSlider;
     public Slider brightness;
+    public MenuItem makeOriginal;
     @FXML
     private Label welcomeText;
 
@@ -49,16 +52,38 @@ public class ImageController {
     public void upload(ActionEvent actionEvent) {
         FileChooser fileChooser = new FileChooser();
         File file = fileChooser.showOpenDialog(stage);
+
         if (file == null) {
             return;
         }
         Image image = new Image(file.toURI().toString());
         originalImage.setImage(image);
 
+        File file2 = new File(String.valueOf(image));
+        long size = file2.length();
+        double sizeInMB = size / (1024.0 * 1024.0);
+        System.out.println("Size of file: " + sizeInMB + " MB");
+
         iName.setText(file.getName());
-        iSize.setText(file.length() + "KB");
+        iSize.setText("Size of file: " + sizeInMB + " MB");
         iWidth.setText(String.valueOf(originalImage.getImage().getWidth() + "PX"));
         iHeight.setText(String.valueOf(originalImage.getImage().getHeight() + "PX"));
+    }
+
+    public void turnPictureOriginal(ActionEvent actionEvent) {
+        Image image = originalImage.getImage();
+
+        if (image == null) {
+            System.out.println("No image selected");
+            return;
+        }
+        int width = (int) image.getWidth();
+        int height = (int) image.getHeight();
+
+        WritableImage newOriginalImage = new WritableImage(width, height);
+
+        alteredImage.setImage(image);
+
     }
 
     public void turnPictureGrey(ActionEvent actionEvent) {
@@ -206,8 +231,16 @@ public class ImageController {
         alteredImage.setEffect(colorAdjust);
     }
 
+
+
     public void hueSlider(MouseEvent mouseEvent) {
+            ColorAdjust colorAdjust = new ColorAdjust();
+            colorAdjust.setHue(hueSlider.getValue());
+            alteredImage.setEffect(colorAdjust);
+
     }
+
+
 }
 
 
