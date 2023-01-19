@@ -19,6 +19,8 @@
         <items>
           <MenuItem fx:id="makeGrey" mnemonicParsing="false" onAction="#turnPictureGrey" text="Greyscale" />
           <MenuItem fx:id="makeRed" mnemonicParsing="false" onAction="#turnRedScale" text="Redscale" />
+            <MenuItem fx:id="makeBlue" mnemonicParsing="false" onAction="#turnBlueScale" text="BlueScale" />
+            <MenuItem fx:id="makeGreen" mnemonicParsing="false" onAction="#turnGreenScale" text="GreenScale" />
         </items>
       </MenuButton>
       <Label fx:id="iName" layoutX="39.0" layoutY="652.0" />
