@@ -5,10 +5,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.Slider;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelReader;
 import javafx.scene.image.WritableImage;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -29,6 +32,8 @@ public class ImageController {
     public Label iHeight;
     public MenuItem makeBlue;
     public MenuItem makeGreen;
+    public Slider hueSlider;
+    public Slider brightness;
     @FXML
     private Label welcomeText;
 
@@ -145,7 +150,7 @@ public class ImageController {
                 int blue = (pixel & 0xff);
 
 
-                pixel = (alpha << 24) | (0 << 16) | (0 << 8)| blue;
+                pixel = (alpha << 24) | (0 << 16) | (0 << 8) | blue;
 
 
                 redImage.getPixelWriter().setArgb(x, y, pixel);
@@ -194,5 +199,16 @@ public class ImageController {
 
         }
     }
+
+    public void brightnessSlider() {
+        ColorAdjust colorAdjust = new ColorAdjust();
+        colorAdjust.setBrightness(brightness.getValue());
+        alteredImage.setEffect(colorAdjust);
+    }
+
+    public void hueSlider(MouseEvent mouseEvent) {
+    }
 }
+
+
 
