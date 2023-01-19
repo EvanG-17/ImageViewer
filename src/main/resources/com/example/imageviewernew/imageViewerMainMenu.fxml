@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: B7B7B5;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.imageviewernew.ImageController">
+   <children>
+      <ImageView fx:id="alteredImage" fitHeight="517.0" fitWidth="492.0" layoutX="603.0" layoutY="69.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="originalImage" fitHeight="517.0" fitWidth="492.0" layoutX="64.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true" />
+      <MenuButton fx:id="mainMenuDrop" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="File">
+        <items>
+          <MenuItem fx:id="uploadButton" mnemonicParsing="false" onAction="#upload" text="Upload File" />
+        </items>
+      </MenuButton>
+      <MenuButton layoutX="39.0" layoutY="610.0" mnemonicParsing="false" text="Image Options">
+        <items>
+          <MenuItem fx:id="makeGrey" mnemonicParsing="false" onAction="#turnPictureGrey" text="Greyscale" />
+          <MenuItem fx:id="makeRed" mnemonicParsing="false" onAction="#turnRedScale" text="Redscale" />
+        </items>
+      </MenuButton>
+      <Label fx:id="iName" layoutX="39.0" layoutY="652.0" />
+      <Label fx:id="iSize" layoutX="38.0" layoutY="680.0" prefHeight="17.0" prefWidth="0.0" />
+      <Label fx:id="iWidth" layoutX="341.0" layoutY="652.0" />
+      <Label fx:id="iHeight" layoutX="340.0" layoutY="671.0" />
+   </children>
+</AnchorPane>
