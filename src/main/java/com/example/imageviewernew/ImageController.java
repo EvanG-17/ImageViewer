@@ -2,10 +2,7 @@ package com.example.imageviewernew;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.Slider;
+import javafx.scene.control.*;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -14,11 +11,8 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+
 import java.io.File;
-import org.apache.commons.lang3.StringUtils;
 
 
 public class ImageController {
@@ -41,14 +35,11 @@ public class ImageController {
     public MenuItem makeOriginal;
     public Label hValue;
     public Label bValue;
+    public Button saveButton;
+    public Button exitButton;
+    public Slider saturation;
+    public Label sValue;
 
-    @FXML
-    private Label welcomeText;
-
-    @FXML
-    protected void onHelloButtonClick() {
-        welcomeText.setText("Welcome to JavaFX Application!");
-    }
 
     @FXML
 
@@ -71,8 +62,8 @@ public class ImageController {
 
         iName.setText(file.getName());
         iSize.setText("Size of file: " + sizeInMB + " MB");
-        iWidth.setText(String.valueOf(originalImage.getImage().getWidth() + "PX"));
-        iHeight.setText(String.valueOf(originalImage.getImage().getHeight() + "PX"));
+        iWidth.setText((originalImage.getImage().getWidth() + "PX"));
+        iHeight.setText((originalImage.getImage().getHeight() + "PX"));
     }
 
     public void turnPictureOriginal(ActionEvent actionEvent) {
@@ -126,7 +117,6 @@ public class ImageController {
             System.out.println("No image selected");
             return;
         }
-
         PixelReader pixelReader = image.getPixelReader();
 
         int width = (int) image.getWidth();
@@ -147,6 +137,36 @@ public class ImageController {
 
             alteredImage.setImage(redImage);
 
+        }
+    }
+
+
+    public void turnGreenScale(ActionEvent actionEvent) {
+
+        Image image = originalImage.getImage();
+
+        if (image == null) {
+            System.out.println("No image selected");
+            return;
+        }
+
+        PixelReader pixelReader = image.getPixelReader();
+
+        int width = (int) image.getWidth();
+        int height = (int) image.getHeight();
+
+        WritableImage redImage = new WritableImage(width, height);
+
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                int pixel = pixelReader.getArgb(x, y);
+
+                int alpha = ((pixel >> 24) & 0xff);
+                int green = (pixel & 0xff);
+                pixel = (alpha << 24) | (0 << 16) | (green << 8);
+                redImage.getPixelWriter().setArgb(x, y, pixel);
+            }
+            alteredImage.setImage(redImage);
         }
     }
 
@@ -187,42 +207,6 @@ public class ImageController {
         }
     }
 
-    public void turnGreenScale(ActionEvent actionEvent) {
-
-        Image image = originalImage.getImage();
-
-        if (image == null) {
-            System.out.println("No image selected");
-            return;
-        }
-
-        PixelReader pixelReader = image.getPixelReader();
-
-        int width = (int) image.getWidth();
-        int height = (int) image.getHeight();
-
-        WritableImage redImage = new WritableImage(width, height);
-
-        for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++) {
-                int pixel = pixelReader.getArgb(x, y);
-
-                int alpha = ((pixel >> 24) & 0xff);
-                int green = (pixel & 0xff);
-
-
-                pixel = (alpha << 24) | (0 << 16) | (green << 8);
-
-
-                redImage.getPixelWriter().setArgb(x, y, pixel);
-
-
-            }
-
-            alteredImage.setImage(redImage);
-
-        }
-    }
 
     public void brightnessSlider() {
         ColorAdjust colorAdjust = new ColorAdjust();
@@ -232,13 +216,36 @@ public class ImageController {
     }
 
 
-
     public void hueSlider(MouseEvent mouseEvent) {
-            ColorAdjust colorAdjust = new ColorAdjust();
-            colorAdjust.setHue(hueSlider.getValue());
-            alteredImage.setEffect(colorAdjust);
-            hValue.setText(String.valueOf(hueSlider.getValue()));
+        ColorAdjust colorAdjust = new ColorAdjust();
+        colorAdjust.setHue(hueSlider.getValue());
+        alteredImage.setEffect(colorAdjust);
+        hValue.setText(String.valueOf(hueSlider.getValue()));
     }
+
+    public void saturationSlider(MouseEvent mouseEvent) {
+        ColorAdjust colorAdjust = new ColorAdjust();
+        colorAdjust.setSaturation(saturation.getValue());
+        alteredImage.setEffect(colorAdjust);
+        sValue.setText(String.valueOf(saturation.getValue()));
+    }
+
+
+    public void onExit(ActionEvent actionEvent) {
+        Stage stage = (Stage) exitButton.getScene().getWindow();
+        stage.close();
+    }
+
+
+    public void onSavePicture(ActionEvent actionEvent) {
+//        Image saveImage = originalImage.getImage();
+//
+//        File outputFile = new File("image.jpg");
+//        BufferedImage bImage = SwingFXUtils.fromFXImage(saveImage, null);
+//        ImageIO.write(bImage, "jpg", outputFile);
+    }
+
+
 }
 
 
