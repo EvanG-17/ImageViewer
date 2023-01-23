@@ -1,5 +1,9 @@
 package com.example.imageviewernew;
 
+//Evan Geary - 20098723 Computer Forensics and Security.
+
+
+//General Improts
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -45,6 +49,10 @@ public class ImageController {
 
     Stage stage;
 
+    ColorAdjust colorAdjust = new ColorAdjust();
+
+
+    //Upload method
     public void upload(ActionEvent actionEvent) {
         FileChooser fileChooser = new FileChooser();
         File file = fileChooser.showOpenDialog(stage);
@@ -60,13 +68,17 @@ public class ImageController {
         double sizeInMB = size / (1024.0 * 1024.0);
 
 
+
+        //Displaying basic image information
         iName.setText(file.getName());
         iSize.setText("Size of file: " + sizeInMB + " MB");
         iWidth.setText((originalImage.getImage().getWidth() + "PX"));
         iHeight.setText((originalImage.getImage().getHeight() + "PX"));
     }
 
-    public void turnPictureOriginal(ActionEvent actionEvent) {
+
+    //Copying original pciture, in case custoemr wanted to edit original.
+    public void turnPictureOriginal() {
         Image image = originalImage.getImage();
 
         if (image == null) {
@@ -76,7 +88,7 @@ public class ImageController {
         alteredImage.setImage(image);
     }
 
-    public void turnPictureGrey(ActionEvent actionEvent) {
+    public void turnPictureGrey() {
         Image image = originalImage.getImage();
 
         if (image == null) {
@@ -208,29 +220,30 @@ public class ImageController {
     }
 
 
+
+    //Sliders for image editing
     public void brightnessSlider() {
-        ColorAdjust colorAdjust = new ColorAdjust();
         colorAdjust.setBrightness(brightness.getValue());
         alteredImage.setEffect(colorAdjust);
         bValue.setText(String.valueOf(brightness.getValue()));
     }
 
 
-    public void hueSlider(MouseEvent mouseEvent) {
-        ColorAdjust colorAdjust = new ColorAdjust();
+    //Hue slider using ColorAdjust Class
+    public void hueSlider() {
         colorAdjust.setHue(hueSlider.getValue());
         alteredImage.setEffect(colorAdjust);
         hValue.setText(String.valueOf(hueSlider.getValue()));
     }
 
-    public void saturationSlider(MouseEvent mouseEvent) {
-        ColorAdjust colorAdjust = new ColorAdjust();
+    public void saturationSlider() {
         colorAdjust.setSaturation(saturation.getValue());
         alteredImage.setEffect(colorAdjust);
         sValue.setText(String.valueOf(saturation.getValue()));
     }
 
 
+    //Exit button
     public void onExit(ActionEvent actionEvent) {
         Stage stage = (Stage) exitButton.getScene().getWindow();
         stage.close();
