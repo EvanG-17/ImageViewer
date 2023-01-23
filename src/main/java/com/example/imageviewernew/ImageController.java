@@ -3,8 +3,7 @@ package com.example.imageviewernew;
 //Evan Geary - 20098723 Computer Forensics and Security.
 
 
-//General Improts
-import javafx.event.ActionEvent;
+//General Imports
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.effect.ColorAdjust;
@@ -12,7 +11,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelReader;
 import javafx.scene.image.WritableImage;
-import javafx.scene.input.MouseEvent;
+
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -21,10 +20,8 @@ import java.io.File;
 
 public class ImageController {
     public ImageView originalImage;
-    public ImageView newImage;
     public MenuButton mainMenuDrop;
     public MenuItem uploadButton;
-    public ImageView view;
     public ImageView alteredImage;
     public MenuItem makeGrey;
     public MenuItem makeRed;
@@ -53,7 +50,7 @@ public class ImageController {
 
 
     //Upload method
-    public void upload(ActionEvent actionEvent) {
+    public void upload() {
         FileChooser fileChooser = new FileChooser();
         File file = fileChooser.showOpenDialog(stage);
 
@@ -77,7 +74,7 @@ public class ImageController {
     }
 
 
-    //Copying original pciture, in case custoemr wanted to edit original.
+    //Copying original picture, in case customer wanted to edit original.
     public void turnPictureOriginal() {
         Image image = originalImage.getImage();
 
@@ -122,7 +119,7 @@ public class ImageController {
         }
     }
 
-    public void turnRedScale(ActionEvent actionEvent) {
+    public void turnRedScale() {
         Image image = originalImage.getImage();
 
         if (image == null) {
@@ -153,7 +150,7 @@ public class ImageController {
     }
 
 
-    public void turnGreenScale(ActionEvent actionEvent) {
+    public void turnGreenScale() {
 
         Image image = originalImage.getImage();
 
@@ -182,7 +179,7 @@ public class ImageController {
         }
     }
 
-    public void turnBlueScale(ActionEvent actionEvent) {
+    public void turnBlueScale() {
 
         Image image = originalImage.getImage();
 
@@ -244,13 +241,13 @@ public class ImageController {
 
 
     //Exit button
-    public void onExit(ActionEvent actionEvent) {
+    public void onExit() {
         Stage stage = (Stage) exitButton.getScene().getWindow();
         stage.close();
     }
 
 
-    public void onSavePicture(ActionEvent actionEvent) {
+    public void onSavePicture() {
 //        Image saveImage = originalImage.getImage();
 //
 //        File outputFile = new File("image.jpg");
