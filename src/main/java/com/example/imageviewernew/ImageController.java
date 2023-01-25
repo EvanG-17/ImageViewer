@@ -4,18 +4,21 @@ package com.example.imageviewernew;
 
 
 //General Imports
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.control.*;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelReader;
 import javafx.scene.image.WritableImage;
-
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-
+import javax.imageio.ImageIO;
 import java.io.File;
+import java.io.IOException;
+import javafx.embed.swing.SwingFXUtils;
 
 
 public class ImageController {
@@ -40,6 +43,8 @@ public class ImageController {
     public Button exitButton;
     public Slider saturation;
     public Label sValue;
+
+
 
 
     @FXML
@@ -247,15 +252,29 @@ public class ImageController {
     }
 
 
-    public void onSavePicture() {
-//        Image saveImage = originalImage.getImage();
-//
-//        File outputFile = new File("image.jpg");
-//        BufferedImage bImage = SwingFXUtils.fromFXImage(saveImage, null);
-//        ImageIO.write(bImage, "jpg", outputFile);
+
+
+
+    public void onSavePicture(ActionEvent actionEvent) {
+        WritableImage image = alteredImage.snapshot(new SnapshotParameters(), null);
+        File dir = new File("C:\\Users\\etg17\\OneDrive\\Pictures\\Saved Pictures");
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+        // Create a FileChooser to prompt the user for a file name
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save Image");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("PNG", "*.png"));
+        File file = fileChooser.showSaveDialog(null);
+        if (file != null) {
+            try {
+                ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", file);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
-
-
 }
 
 
